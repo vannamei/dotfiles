@@ -1,0 +1,19 @@
+# Ignore all files
+/*
+
+# Ignore all dotfiles
+/.*
+
+### Files managed by Git ###
+!/bin
+!/zsh
+!/starship
+!/alacritty
+!/tmux
+!/nvim
+!/git
+!/.gitignore
+!/README.md
+
+# Add ignore files
+/nvim/plugin/packer_compiled.lua

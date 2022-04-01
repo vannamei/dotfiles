@@ -1,0 +1,49 @@
+shell:
+  program: /bin/zsh
+env:
+  TERM: alacritty
+colors:
+  primary:
+    background: '#32302f'
+    foreground: '#ebdbb2'
+  normal:
+    black: '#282828'
+    red: '#cc241d'
+    green: '#98971a'
+    yellow: '#d79921'
+    blue: '#458588'
+    magenta: '#b16286'
+    cyan: '#689d6a'
+    white: '#a89984'
+  bright:
+    black: '#928374'
+    red: '#fb4934'
+    green: '#b8bb26'
+    yellow: '#fabd2f'
+    blue: '#83a598'
+    magenta: '#d3869b'
+    cyan: '#8ec07c'
+    white: '#ebdbb2'
+font:
+  size: 10 # フォントサイズ
+  normal:
+    family: 'HackGenNerd Console'
+    style: Regular
+  bold:
+    family: 'HackGenNerd Console'
+    style: Bold
+  italic:
+    family: 'HackGenNerd Console'
+    style: Italic
+  bold_italic:
+    family: 'HackGenNerd Console'
+    style: Bold Italic
+window:
+  padding:
+    x: 4
+    y: 4
+  decorations: full # ボーダーとタイトルバーを表示する
+  opacity: 0.9 # 背景を透過させる
+  dimentions:
+    columns: 0
+    lines: 0

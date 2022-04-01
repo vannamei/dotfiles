@@ -1,0 +1,21 @@
+[user]
+	name = vannamei
+	email = shun_ymnk@icloud.com
+[push]
+	default = current
+[pull]
+	ff = only
+	rebase = false
+[init]
+	defaultBranch = main
+[core]
+	autocrlf = false
+	ignorecase = false
+	editor = nvim
+	quotepath = false
+[color]
+	ui = true
+[credential]
+	helper = cache --timeout=86400
+[commit]
+  template = ~/.git_template
