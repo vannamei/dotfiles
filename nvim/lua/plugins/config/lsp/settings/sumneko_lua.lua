@@ -10,7 +10,7 @@ return {
 				path = runtime_path,
 			},
 			diagnostics = {
-				globals = { "vim", "api", "fn" },
+				globals = { "vim", "api", "fn", "OSTYPE" },
 			},
 			workspace = {
 				library = {

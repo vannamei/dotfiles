@@ -1,4 +1,5 @@
 local cmp_status_ok, cmp = pcall(require, "cmp")
+
 if not cmp_status_ok then
 	return
 end
@@ -95,29 +96,40 @@ cmp.setup({
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			-- vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+			-- vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				luasnip = "[Snippet]",
+				nvim_lua = "[Lua]",
 				buffer = "[Buffer]",
 				path = "[Path]",
+				omni = "[Omni]",
+				emoji = "[Emoji]",
+				calc = "[Calc]",
+				treesitter = "[TS]",
 			})[entry.source.name]
 			return vim_item
 		end,
 	},
 	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "path" },
+		{ name = "nvim_lsp", priority = 100 },
+		{ name = "luasnip", priority = 20 },
+		{ name = "path", priority = 100 },
+		{ name = "emoji", insert = true, priority = 60 },
+		{ name = "nvim_lsp_signature_help", priority = 80 },
+		{ name = "buffer", priority = 50 },
+		{ name = "omni", priority = 40 },
+		{ name = "calc", priority = 50 },
+		{ name = "treesitter", priority = 30 },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
 	},
-	documentation = {
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 	experimental = {
 		ghost_text = false,

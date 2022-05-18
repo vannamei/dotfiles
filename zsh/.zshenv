@@ -11,12 +11,21 @@ if [ -d "$HOME/.local/bin" ]; then
   export PATH=$HOME/.local/bin:$PATH
 fi
 
+# Neovim
+export ZENHAN='/mnt/c/Scoop/apps/zenhan/current/zenhan.exe'
+
 # fnm(Node.js)
   export PATH=$HOME/.fnm:$PATH
   eval "$(fnm env --use-on-cd)"
 
 # Rust
+if [ -d "$HOME/.rustup" ]; then
+  export PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/:$PATH
+fi
 if [ -d "$HOME/.cargo/bin" ]; then
   export PATH=$HOME/.cargo/bin:$PATH
 fi
 . "$HOME/.cargo/env"
+
+# Composer
+export PATH=$XDG_CONFIG_HOME/composer/vendor/bin:$PATH

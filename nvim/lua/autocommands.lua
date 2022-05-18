@@ -1,16 +1,13 @@
 local DisableIME = api.create_augroup("DisableIME", { clear = true })
--- Linux
-if vim.loop.os_uname().sysname == "Linux" then
+if OSTYPE == "WSL" then
+	api.create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
+		group = DisableIME,
+		command = "silent! :call system('${ZENHAN} 0')",
+	})
+elseif OSTYPE == "Linux" then
 	api.create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
 		group = DisableIME,
 		command = "silent! :call system('fcitx-remote -c')",
-	})
-end
--- WSL2
-if os.execute("uname -a | grep microsoft") ~= "" then
-	api.create_autocmd({ "InsertLeave", "CmdlineLeave" }, {
-		group = DisableIME,
-		command = "silent! :call system('${WIN_ZENHAN} 0')",
 	})
 end
 

@@ -3,17 +3,17 @@ if not lsp_installer_ok then
 	return
 end
 
-local common_opts = require("plugins.config.lsp.settings.common")
-local merge_opts = require("plugins.config.lsp.utils").merge_opts
-
 lsp_installer.on_server_ready(function(server)
-	local server_opts_exist, server_opts = pcall(require, "plugins.config.lsp.settings." .. server.name)
-	if server_opts_exist then
-		local merged_opts = merge_opts(server_opts)
-		server:setup(merged_opts)
-	else
-		server:setup(common_opts)
-	end
-end)
+	local opts = {
+		on_attach = require("plugins.config.lsp.default_opts").on_attach,
+		capabilities = require("plugins.config.lsp.default_opts").capabilities,
+		handlers = require("plugins.config.lsp.default_opts").handlers,
+	}
 
-require("plugins.config.lsp.null-ls")
+	local has_server_opts, server_opts = pcall(require, "plugins.config.lsp.settings." .. server.name)
+	if has_server_opts then
+		opts = vim.tbl_deep_extend("force", server_opts, opts)
+	end
+
+	server:setup(opts)
+end)

@@ -134,9 +134,9 @@ setopt hist_ignore_space
 fpath=(${ASDF_DIR}/completions $fpath)
 
 # genie(systemd)
-# if [[ ! -v INSIDE_GENIE ]]; then
-#  exec /usr/bin/genie -s
-# fi
+if [[ ! -v INSIDE_GENIE ]]; then
+ exec /usr/bin/genie -s
+fi
 
 # use starship for prompt
 if [[ $(command -v starship) ]]; then

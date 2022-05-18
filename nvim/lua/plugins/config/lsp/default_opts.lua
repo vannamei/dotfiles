@@ -1,7 +1,4 @@
-local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not cmp_lsp_ok then
-	return
-end
+local M = {}
 
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
@@ -22,8 +19,8 @@ end
 
 local function lsp_autocmd(client)
 	-- Format on save
-	api.create_augroup("LspFormatting", {})
-	api.create_autocmd({ "BufWritePre" }, {
+	vim.api.nvim_create_augroup("LspFormatting", {})
+	vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		group = "LspFormatting",
 		buffer = 0,
 		callback = function()
@@ -32,15 +29,15 @@ local function lsp_autocmd(client)
 	})
 
 	if client.resolved_capabilities.document_highlight then
-		api.create_augroup("LspDocumentHighlight", {})
-		api.create_autocmd({ "CursorHold" }, {
+		vim.api.nvim_create_augroup("LspDocumentHighlight", {})
+		vim.api.nvim_create_autocmd({ "CursorHold" }, {
 			group = "LspDocumentHighlight",
 			buffer = 0,
 			callback = function()
 				vim.lsp.buf.document_highlight()
 			end,
 		})
-		api.create_autocmd({ "CursorHold" }, {
+		vim.api.nvim_create_autocmd({ "CursorHold" }, {
 			group = "LspDocumentHighlight",
 			buffer = 0,
 			callback = function()
@@ -50,18 +47,25 @@ local function lsp_autocmd(client)
 	end
 end
 
-return {
-	on_attach = function(client, bufnr)
-		lsp_keymaps(bufnr)
-		lsp_autocmd(client)
-	end,
-	capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-			border = "rounded",
-		}),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-			border = "rounded",
-		}),
-	},
+M.on_attach = function(client, bufnr)
+	lsp_keymaps(bufnr)
+	lsp_autocmd(client)
+end
+
+local cmp_lsp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not cmp_lsp_ok then
+	return
+end
+
+M.capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+M.handlers = {
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+		border = "rounded",
+	}),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+		border = "rounded",
+	}),
 }
+
+return M

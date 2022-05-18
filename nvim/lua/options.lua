@@ -1,44 +1,58 @@
 local options = {
 	autoread = true,
 	backup = false,
-	background = "dark",
-	clipboard = "unnamedplus",
-	cmdheight = 2,
-	completeopt = { "menuone", "noselect" },
-	conceallevel = 0,
+	swapfile = false,
+	undofile = true,
+	writebackup = false,
+
 	fileencoding = "utf-8",
-	hlsearch = true,
-	ignorecase = true,
+	helplang = "ja,en",
+
+	clipboard = "unnamedplus",
 	mouse = "a",
-	pumheight = 10,
+	completeopt = { "menu", "menuone", "noselect" },
+
+	hlsearch = true,
 	showmode = false,
 	showtabline = 2,
+
 	smartcase = true,
+	ignorecase = true,
+
 	autoindent = true,
 	smartindent = true,
-	splitbelow = true,
-	splitright = true,
-	swapfile = false,
-	termguicolors = true,
-	timeoutlen = 1000,
-	undofile = true,
-	updatetime = 300,
-	writebackup = false,
 	expandtab = true,
 	shiftwidth = 2,
 	tabstop = 2,
+
+	splitbelow = true,
+	splitright = true,
+
+	timeoutlen = 1000,
+	updatetime = 300,
+
+	background = "dark",
+	termguicolors = true,
+
 	cursorline = true,
+
 	number = true,
 	relativenumber = true,
 	numberwidth = 4,
 	signcolumn = "yes",
+
+	conceallevel = 0,
+	pumheight = 10,
+
 	wrap = true,
 	linebreak = true,
 	breakindent = true,
 	showbreak = "+\\",
+
+	cmdheight = 2,
+
 	scrolloff = 8,
 	sidescrolloff = 8,
-	helplang = "ja,en",
 }
 
 vim.opt.shortmess:append("c")
