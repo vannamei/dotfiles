@@ -33,11 +33,7 @@ vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr>", opts)
 -- Packer(Plugin manager)
 vim.keymap.set("n", "<leader>ps", ":PackerSync<cr>", opts)
 vim.keymap.set("n", "<leader>pc", ":PackerCompile<cr>", opts)
--- Telescope(Fuzzy finder)
-vim.keymap.set("n", "<leader>tb", ":Telescope buffers<cr>", opts)
 vim.keymap.set("n", "<leader>th", ":Telescope help_tags<cr>", opts)
--- NvimTree(File exploler)
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 -- Buffer
 vim.keymap.set("n", "<c-n>", ":BufferLineCycleNext<cr>", opts) -- bufferline
 vim.keymap.set("n", "<c-p>", ":BufferLineCyclePrev<cr>", opts) -- bufferline

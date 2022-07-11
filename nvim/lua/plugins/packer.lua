@@ -186,14 +186,26 @@ local init = (function()
 			},
 
 			-- File explorer
+			-- {
+			-- 	"kyazdani42/nvim-tree.lua",
+			-- 	requires = {
+			-- 		"kyazdani42/nvim-web-devicons",
+			-- 	},
+			-- 	cmd = "NvimTree*",
+			-- 	config = function()
+			-- 		require("plugins.config.nvim-tree")
+			-- 	end,
+			-- },
 			{
-				"kyazdani42/nvim-tree.lua",
+				"nvim-neo-tree/neo-tree.nvim",
+				branch = "v2.x",
 				requires = {
+					"nvim-lua/plenary.nvim",
 					"kyazdani42/nvim-web-devicons",
+					"MunifTanjim/nui.nvim",
 				},
-				cmd = "NvimTree*",
 				config = function()
-					require("plugins.config.nvim-tree")
+					require("plugins.config.neotree")
 				end,
 			},
 
@@ -296,10 +308,6 @@ local init = (function()
 				end,
 			},
 
-			-- Editor Config
-			{ "gpanders/editorconfig.nvim" },
-
-			-- Localize
 			{ "vim-jp/vimdoc-ja" },
 			{ "skanehira/translate.vim" },
 		})
