@@ -175,12 +175,9 @@ local opts = {
 		-- standalone file support
 		-- setting it to false may improve startup time
 		standalone = true,
-    on_attach = require("utils").merge_functions(
-      function(client)
-        client.resolved_capabilities.document_formatting = false
-      end,
-      require("plugins.config.lsp.default_opts").on_attach
-    ),
+		on_attach = require("utils.common").merge_functions(function(client)
+			client.resolved_capabilities.document_formatting = false
+		end, require("plugins.config.lsp.default_opts").on_attach),
 	}, -- rust-analyer options
 
 	-- debugging stuff

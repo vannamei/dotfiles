@@ -1,4 +1,4 @@
--- Bootstrap
+--/ Packer bootstrap /--
 local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
 	print("packer bootstrap: 'packer.nvim' does not exist. Attempts to install from git repositories.")
@@ -14,7 +14,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	print("packer bootstrap: 'packer.nvim' is installed. Please close and reopen Neovim.")
 end
 
--- Define packer commands
+--/ Define packer commands /--
 local function run_packer(method, opts)
 	local packer = require("plugins.packer")
 	return function()
@@ -37,6 +37,9 @@ vim.api.nvim_create_user_command("PackerCompile", function()
 end, {
 	desc = "[Packer] Compile plugins",
 })
+
+vim.keymap.set("n", "<leader>ps", "<cmd>PackerSync<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>pc", "<cmd>PackerCompile<cr>", { noremap = true, silent = true })
 
 if PACKER_BOOTSTRAP then
 	vim.api.nvim_command("PackerSync")

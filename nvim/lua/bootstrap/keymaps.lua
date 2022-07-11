@@ -5,16 +5,6 @@ vim.keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Startup(Dashboard)
-vim.keymap.set("n", "<leader>ss", ":<c-u>SessionSave<cr>")
-vim.keymap.set("n", "<leader>sl", ":<c-u>SessionLoad<cr>")
-vim.keymap.set("n", "<leader>fh", ":DashboardFindHistory<cr>", opts)
-vim.keymap.set("n", "<leader>ff", ":DashboardFindFile<cr>", opts)
-vim.keymap.set("n", "<leader>tc", ":DashboardChangeColorscheme<cr>", opts)
-vim.keymap.set("n", "<leader>fa", ":DashboardFindWord<cr>", opts)
-vim.keymap.set("n", "<leader>fb", ":DashboardJumpMark<cr>", opts)
-vim.keymap.set("n", "<leader>cn", ":DashboardNewFile<cr>", opts)
-
 ------------
 -- Normal --
 ------------
@@ -30,10 +20,6 @@ vim.keymap.set("n", "<C-Left>", ":vertical resize +2<CR>", opts)
 vim.keymap.set("n", "<C-Right>", ":vertical resize -2<CR>", opts)
 -- Delete search highlight
 vim.keymap.set("n", "<esc><esc>", ":nohlsearch<cr>", opts)
--- Packer(Plugin manager)
-vim.keymap.set("n", "<leader>ps", ":PackerSync<cr>", opts)
-vim.keymap.set("n", "<leader>pc", ":PackerCompile<cr>", opts)
-vim.keymap.set("n", "<leader>th", ":Telescope help_tags<cr>", opts)
 -- Buffer
 vim.keymap.set("n", "<c-n>", ":BufferLineCycleNext<cr>", opts) -- bufferline
 vim.keymap.set("n", "<c-p>", ":BufferLineCyclePrev<cr>", opts) -- bufferline

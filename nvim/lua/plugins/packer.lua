@@ -115,7 +115,7 @@ local init = (function()
 			{
 				"akinsho/toggleterm.nvim",
 				tag = "v1.*",
-				cmd = "ToggleTerm",
+				keys = "<c-\\>",
 				config = function()
 					require("plugins.config.toggleterm")
 				end,
@@ -130,8 +130,13 @@ local init = (function()
 			-- Fuzzy Finder
 			{
 				"nvim-telescope/telescope.nvim",
-				cmd = "Telescope*",
-				module = "telescope",
+				requires = {
+					{ "nvim-telescope/telescope-file-browser.nvim" },
+					{
+						"nvim-telescope/telescope-fzf-native.nvim",
+						run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+					},
+				},
 				config = function()
 					require("plugins.config.telescope")
 				end,
