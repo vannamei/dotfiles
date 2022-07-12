@@ -191,16 +191,6 @@ local init = (function()
 			},
 
 			-- File explorer
-			-- {
-			-- 	"kyazdani42/nvim-tree.lua",
-			-- 	requires = {
-			-- 		"kyazdani42/nvim-web-devicons",
-			-- 	},
-			-- 	cmd = "NvimTree*",
-			-- 	config = function()
-			-- 		require("plugins.config.nvim-tree")
-			-- 	end,
-			-- },
 			{
 				"nvim-neo-tree/neo-tree.nvim",
 				branch = "v2.x",

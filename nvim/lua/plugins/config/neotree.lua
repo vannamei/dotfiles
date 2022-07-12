@@ -3,8 +3,6 @@ if not neotree_ok then
 	return
 end
 
-vim.api.nvim_command("let g:neo_tree_remove_legacy_commands = 1")
-
 vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
@@ -78,7 +76,7 @@ neotree.setup({
 	},
 	window = {
 		position = "left",
-		width = 30,
+		width = 40,
 		mapping_options = {
 			noremap = true,
 			nowait = true,
@@ -131,7 +129,7 @@ neotree.setup({
 			hide_hidden = true, -- only works on Windows for hidden files/directories
 			hide_by_name = {
 				"node_modules",
-				"vendor",
+				"/vendor",
 			},
 			hide_by_pattern = { -- uses glob style patterns
 				"*.meta",
@@ -141,8 +139,8 @@ neotree.setup({
 				"thumbs.db",
 			},
 		},
-		follow_current_file = false, -- This will find and focus the file in the active buffer every
 		-- time the current file is changed while the tree is open.
+		follow_current_file = false, -- This will find and focus the file in the active buffer every
 		group_empty_dirs = false, -- when true, empty folders will be grouped together
 		hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
 		-- in whatever position is specified in window.position
@@ -192,7 +190,5 @@ neotree.setup({
 		},
 	},
 })
-
-vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
 
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { noremap = true, silent = true })
