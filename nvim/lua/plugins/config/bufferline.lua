@@ -3,6 +3,19 @@ if not ok then
 	return
 end
 
+local c = {
+	fujiWhite = "#DCD7BA",
+	oldWhite = "#C8C093",
+	sumiInk0 = "#16161D",
+	sumiInk1 = "#1F1F28",
+	sumiInk2 = "#2A2A37",
+	sumiInk3 = "#363646",
+	sumiInk4 = "#54546D",
+	waveBlue1 = "#223249",
+	carpYellow = "#E6C384",
+	autumunGreen = "#76946A",
+}
+
 bufferline.setup({
 	options = {
 		mode = "buffers",
@@ -14,9 +27,11 @@ bufferline.setup({
 		-- NOTE: this plugin is designed with this icon in mind,
 		-- and so changing this is NOT recommended, this is intended
 		-- as an escape hatch for people who cannot bear it for whatever reason
-		indicator_icon = "▎",
+		indicator = {
+			style = "icon",
+		},
 		buffer_close_icon = "",
-		modified_icon = "●",
+		modified_icon = "❢",
 		close_icon = "",
 		left_trunc_marker = "",
 		right_trunc_marker = "",
@@ -72,94 +87,144 @@ bufferline.setup({
 	},
 	highlights = {
 		fill = {
-			guifg = { attribute = "fg", highlight = "#ff0000" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.sumiInk2,
+			bg = c.sumiInk2,
 		},
 		background = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.fujiWhite,
+			bg = c.sumiInk1,
 		},
-
-		-- buffer_selected = {
-		--   guifg = {attribute='fg',highlight='#ff0000'},
-		--   guibg = {attribute='bg',highlight='#0000ff'},
-		--   gui = 'none'
-		--   },
+		numbers = {
+			fg = c.fujiWhite,
+			bg = c.sumiInk1,
+		},
+		numbers_selected = {
+			fg = c.carpYellow,
+			bg = c.waveBlue1,
+			bold = true,
+			italic = true,
+		},
+		numbers_visible = {
+			fg = c.fujiWhite,
+		},
+		buffer = {
+			fg = c.fujiWhite,
+			bg = c.sumiInk1,
+		},
+		buffer_selected = {
+			fg = c.carpYellow,
+			bg = c.waveBlue1,
+			bold = true,
+			italic = true,
+		},
 		buffer_visible = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.fujiWhite,
 		},
 		close_button = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.fujiWhite,
+			bg = c.sumiInk1,
+		},
+		close_button_selected = {
+			fg = c.fujiWhite,
+			bg = c.waveBlue1,
 		},
 		close_button_visible = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.fujiWhite,
 		},
-		-- close_button_selected = {
-		--   guifg = {attribute='fg',highlight='TabLineSel'},
-		--   guibg ={attribute='bg',highlight='TabLineSel'}
-		--   },
-
-		tab_selected = {
-			guifg = { attribute = "fg", highlight = "Normal" },
-			guibg = { attribute = "bg", highlight = "Normal" },
+		diagnostic = {},
+		diagnostic_visible = {},
+		diagnostic_selected = {
+			bold = true,
+			italic = true,
 		},
-		tab = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+		hint = {},
+		hint_visible = {},
+		hint_selected = {
+			bold = true,
+			italic = true,
 		},
-		tab_close = {
-			-- guifg = {attribute='fg',highlight='LspDiagnosticsDefaultError'},
-			guifg = { attribute = "fg", highlight = "TabLineSel" },
-			guibg = { attribute = "bg", highlight = "Normal" },
+		hint_diagnostic = {},
+		hint_diagnostic_visible = {},
+		hint_diagnostic_selected = {
+			bold = true,
+			italic = true,
 		},
-
-		duplicate_selected = {
-			guifg = { attribute = "fg", highlight = "TabLineSel" },
-			guibg = { attribute = "bg", highlight = "TabLineSel" },
-			gui = "italic",
+		info = {},
+		info_visible = {},
+		info_selected = {
+			bold = true,
+			italic = true,
 		},
-		duplicate_visible = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
-			gui = "italic",
+		info_diagnostic = {},
+		info_diagnostic_visible = {},
+		info_diagnostic_selected = {
+			bold = true,
+			italic = true,
 		},
-		duplicate = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
-			gui = "italic",
+		warning = {},
+		warning_visible = {},
+		warning_selected = {
+			bold = true,
+			italic = true,
 		},
-
+		warning_diagnostic = {},
+		warning_diagnostic_visible = {},
+		warning_diagnostic_selected = {
+			bold = true,
+			italic = true,
+		},
+		error = {},
+		error_visible = {},
+		error_selected = {
+			bold = true,
+			italic = true,
+		},
+		error_diagnostic = {},
+		error_diagnostic_visible = {},
+		error_diagnostic_selected = {
+			bold = true,
+			italic = true,
+		},
 		modified = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.carpYellow,
+			bg = c.sumiInk1,
 		},
 		modified_selected = {
-			guifg = { attribute = "fg", highlight = "Normal" },
-			guibg = { attribute = "bg", highlight = "Normal" },
+			fg = c.carpYellow,
+			bg = c.waveBlue1,
 		},
 		modified_visible = {
-			guifg = { attribute = "fg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.carpYellow,
 		},
-
+		duplicate_selected = {
+			italic = true,
+		},
+		duplicate_visible = {
+			italic = true,
+		},
+		duplicate = {
+			italic = true,
+		},
 		separator = {
-			guifg = { attribute = "bg", highlight = "TabLine" },
-			guibg = { attribute = "bg", highlight = "TabLine" },
+			fg = c.oldWhite,
+			bg = c.sumiInk1,
 		},
-		separator_selected = {
-			guifg = { attribute = "bg", highlight = "Normal" },
-			guibg = { attribute = "bg", highlight = "Normal" },
-		},
-		-- separator_visible = {
-		--   guifg = {attribute='bg',highlight='TabLine'},
-		--   guibg = {attribute='bg',highlight='TabLine'}
-		--   },
 		indicator_selected = {
-			guifg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
-			guibg = { attribute = "bg", highlight = "Normal" },
+			fg = c.fujiWhite,
+			bg = c.waveBlue1,
 		},
+		pick_selected = {
+			bold = true,
+			italic = true,
+		},
+		pick_visible = {
+			bold = true,
+			italic = true,
+		},
+		pick = {
+			bold = true,
+			italic = true,
+		},
+		offset_separator = {},
 	},
 })
