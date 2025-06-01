@@ -1,0 +1,6 @@
+add_newline = false
+command_timeout = 500
+
+[character]
+success_symbol = "🚀"
+error_symbol = "😩"
