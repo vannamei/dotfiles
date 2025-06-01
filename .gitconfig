@@ -1,0 +1,19 @@
+[init]
+defaultBranch = main
+  
+[user]
+name = vannamei
+email = shun_ymnk@icloud.com
+
+[fetch]
+prune = true
+
+[status]
+showUntrackedFiles = all
+
+[core]
+autocrlf = input
+quotepath = false
+
+[merge]
+conflictStyle = zdiff3
