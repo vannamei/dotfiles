@@ -17,13 +17,9 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 # エイリアス
-alias ls='eza -lahF'
+alias ls='eza -lhF'
+alias la='eza -lahF'
 alias v='nvim'
-
-# tmux
-if [ -z "$TMUX" ]; then
-  exec tmux
-fi
 
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
