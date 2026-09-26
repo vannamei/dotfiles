@@ -1,0 +1,11 @@
+# 設定ファイルだけを管理。認証情報・履歴・アプリデータは含めない。
+.zshrc
+.zprofile
+.gitconfig
+.config/git
+.config/alacritty
+.config/nvim
+.config/starship.toml
+.config/tmux
+.config/mise/config.toml
+.config/karabiner

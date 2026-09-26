@@ -1,0 +1,21 @@
+# 直接導入したCLI。依存ライブラリはHomebrewが解決する。
+brew "bat"
+brew "eza"
+brew "gawk"
+brew "gh"
+brew "git"
+brew "gnupg"
+brew "mise"
+brew "ncurses"
+brew "neovim"
+brew "ripgrep"
+brew "starship"
+brew "tmux"
+brew "unar"
+brew "uv"
+brew "wget"
+
+# ターミナル・キー設定・フォント
+cask "alacritty"
+cask "karabiner-elements"
+cask "font-hackgen-nerd"

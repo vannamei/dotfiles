@@ -1,0 +1,23 @@
+# OS・エディター・認証情報・ローカル差分
+.DS_Store
+*.swp
+*.swo
+*~
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.local
+.gitconfig.local
+.zshrc.local
+# 実行時に再生成される情報
+.config/karabiner/automatic_backups/
+.config/karabiner/log/
+.config/nvim/lazyvim.json
+# テーマ集全体は追跡せず、利用中のテーマとライセンスのみ保存
+.config/alacritty/themes/*
+!.config/alacritty/themes/LICENSE
+!.config/alacritty/themes/themes/
+.config/alacritty/themes/themes/*
+!.config/alacritty/themes/themes/kanagawa_wave.toml

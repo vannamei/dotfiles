@@ -1,0 +1,25 @@
+{
+  "NSGlobalDomain": {
+    "AppleInterfaceStyle": "Dark",
+    "AppleShowAllExtensions": true,
+    "KeyRepeat": 2.0,
+    "InitialKeyRepeat": 15.0,
+    "ApplePressAndHoldEnabled": null,
+    "NSAutomaticCapitalizationEnabled": true,
+    "NSAutomaticSpellingCorrectionEnabled": null
+  },
+  "com.apple.dock": {
+    "autohide": true,
+    "tilesize": 43.0,
+    "orientation": null,
+    "magnification": true,
+    "largesize": 94.0,
+    "mineffect": "scale"
+  },
+  "com.apple.finder": {
+    "ShowPathbar": null,
+    "ShowStatusBar": null,
+    "FXPreferredViewStyle": "glyv",
+    "AppleShowAllFiles": null
+  }
+}
