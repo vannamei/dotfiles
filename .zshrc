@@ -23,6 +23,12 @@ if (( $+commands[nvim] )); then
   export VISUAL=nvim
 fi
 
+# Ctrl-s / Ctrl-q を端末の停止・再開に使わず、エディターへ渡す。
+unsetopt FLOW_CONTROL
+if [[ -t 0 ]]; then
+  stty -ixon 2>/dev/null || true
+fi
+
 # 履歴を複数のターミナルで共有する。
 # SHARE_HISTORY が追記も担当するため INC_APPEND_HISTORY は併用しない。
 HISTFILE="$HOME/.zsh_history"

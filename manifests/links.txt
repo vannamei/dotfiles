@@ -1,6 +1,7 @@
 # 設定ファイルだけを管理。認証情報・履歴・アプリデータは含めない。
 .zshrc
 .zprofile
+.tmux.conf
 .gitconfig
 .config/git
 .config/alacritty

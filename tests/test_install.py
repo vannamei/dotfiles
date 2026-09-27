@@ -42,6 +42,23 @@ class InstallTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(list((self.home / '.local/state/dotfiles-backups').iterdir()), backups)
 
+    def test_tmux_loads_restored_configuration(self):
+        result = self.run_install('--apply')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        entry = self.home / '.tmux.conf'
+        self.assertTrue(entry.is_file())
+        socket = str(Path(self.tmp.name) / 'tmux.sock')
+        base = ['tmux', '-S', socket]
+        try:
+            started = subprocess.run(base + ['-f', str(entry), 'new-session', '-d', '-s', 'restore-test', '/bin/cat'], capture_output=True, text=True)
+            self.assertEqual(started.returncode, 0, started.stderr)
+            prefix = subprocess.check_output(base + ['show-options', '-gv', 'prefix'], text=True).strip()
+            self.assertEqual(prefix, 'C-b')
+            bindings = subprocess.check_output(base + ['list-keys', '-T', 'root'], text=True)
+            self.assertNotIn(' C-j ', bindings)
+        finally:
+            subprocess.run(base + ['kill-server'], capture_output=True)
+
     def test_missing_source_stops_before_changes(self):
         repo = Path(self.tmp.name) / 'incomplete'
         (repo / 'manifests').mkdir(parents=True)
