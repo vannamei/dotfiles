@@ -2,6 +2,8 @@
 
 Apple Silicon Mac 向け。zsh、Git、Alacritty、Starship、tmux、Neovim、mise、Karabiner-Elements の設定を管理します。Dock/Finder/キーリピートなど、選択したmacOS設定も保存しています。
 
+詳しい操作は [このMac専用マニュアル](docs/mac-manual.md) を参照してください。
+
 ## 新しいMacに復元する
 
 1. Xcode Command Line Tools (`xcode-select --install`) と [Homebrew](https://brew.sh/) を導入します。GitHubの認証が必要な場合は本人のアカウントで行います。
@@ -41,7 +43,7 @@ python3 scripts/macos.py --apply
 
 ```sh
 cd ~/dotfiles
-python3 scripts/snapshot.py
+./scripts/save.sh
 # Dock/Finderなども更新した場合だけ:
 python3 scripts/macos.py --capture
 git status --short
@@ -60,7 +62,7 @@ Brewfileは導入するツールの宣言です。追加・削除したパッケ
 ```sh
 git log --oneline
 # 指定コミットの設定を作業ツリーへ復元する（<commit>は実際のIDに置換）
-git restore --source=<commit> -- .zshrc .zprofile .config Brewfile Brewfile.apps manifests
+git restore --source=<commit> -- .zshrc .zprofile .tmux.conf .config Brewfile Brewfile.apps manifests
 # 差分を確認し、復元を新しい履歴として保存する
 git diff
 git add .
@@ -87,7 +89,7 @@ Spaceがleaderです。Space e: ファイル一覧、Space Space: 検索、Space
 
 ## 検証
 
-`python3 tests/test_install.py` で一時ホームへの適用、既存ファイルの退避、二重適用、欠損ソース時の停止を検証します。実際のホームには適用しません。
+`mise exec python -- python3 -m unittest discover -s tests` で一時ホームへの適用、既存ファイルの退避、二重適用、欠損ソース時の停止、Homebrew失敗時の保全、snapshotの競合検出を検証します。実際のホームには適用しません。
 
 ## 2026-09-28 の修正
 
@@ -96,3 +98,12 @@ Spaceがleaderです。Space e: ファイル一覧、Space Space: 検索、Space
 - zshのFLOW_CONTROLとTTYのIXONを無効にして、Ctrl-sが出力停止にならないようにしました。新しいターミナルで有効になります。
 - miseの実環境と保存内容を固定バージョンに統一し、追加されたCodex CLIも記録しました。
 - Time Machineのディスク指定・初回バックアップは別途必要です。保存先が決まっていない状態でディスク消去や登録を行うことはありません。
+
+## 保存漏れの確認と個人情報
+
+- `./scripts/save.sh --check` はmise/Karabinerの実設定とGit側を比較します。一致なら終了コード0、不一致や欠損なら1です。変更は行いません。
+- `./scripts/save.sh` は取り込みと差分一覧の表示をまとめます。Git側にも別の編集があれば上書きせず停止するので、先に両方の内容を統合します。取り込み前の内容は `.git/dotfiles-snapshots/` に退避します。
+- `lazyvim.json` もGit管理するため、`:LazyExtras`で選択した機能を復元できます。変更後は通常のcommit/pushが必要です。
+- Gitの名前・メールは `~/.gitconfig.local` に分離します。新しいMacでは `.gitconfig.local.example` を参考に、本人の情報を入力してください。これはGitへ追加しません。
+- 公開コミットのメールアドレスを隠す場合は、GitHubのメール設定画面に表示されるnoreplyアドレスを使います。過去のコミットや過去の設定履歴はそのまま残ります。
+- `--apply --tools` はHomebrewの確認とパッケージ取得を設定の置き換えより先に行います。Homebrew自身が途中まで導入したパッケージは自動削除しません。miseの取得は設定適用後のため、通信などで失敗した場合は原因を解消して再実行してください。

@@ -1,0 +1,4 @@
+# ~/.gitconfig.local にコピーして本人の情報を設定する。
+[user]
+name = Your Name
+email = YOUR_GITHUB_NOREPLY_EMAIL

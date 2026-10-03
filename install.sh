@@ -18,6 +18,15 @@ while IFS= read -r rel; do
   [[ -z "$rel" || "$rel" == \#* ]] && continue
   [[ -e "$repo_dir/$rel" ]] || { echo "設定がありません: $rel" >&2; exit 1; }
 done < "$repo_dir/manifests/links.txt"
+# ツール導入の必要条件とBrewfileを、設定を触る前に確認する。
+if $apply && $install_tools; then
+  command -v brew >/dev/null || { echo '先に https://brew.sh/ からHomebrewを導入してください。設定は未変更です。' >&2; exit 1; }
+  [[ -f "$repo_dir/Brewfile" ]] || { echo 'Brewfileがありません。設定は未変更です。' >&2; exit 1; }
+  # 通信やパッケージ取得に失敗した場合も、既存設定をそのまま残す。
+  brew bundle install --no-upgrade --file="$repo_dir/Brewfile"
+  eval "$(brew shellenv)"
+  command -v mise >/dev/null || { echo 'miseの導入を確認できません。設定は未変更です。' >&2; exit 1; }
+fi
 backup_dir="$target_home/.local/state/dotfiles-backups/$(date +%Y%m%d-%H%M%S)-$$"
 while IFS= read -r rel; do
   [[ -z "$rel" || "$rel" == \#* ]] && continue
@@ -40,16 +49,16 @@ while IFS= read -r rel; do
 done < "$repo_dir/manifests/links.txt"
 if $install_tools; then
   if $apply; then
-    command -v brew >/dev/null || { echo '先に https://brew.sh/ からHomebrewを導入してください。' >&2; exit 1; }
-    # 既存パッケージの一括更新や、未記載パッケージの削除は行わない。
-    brew bundle install --no-upgrade --file="$repo_dir/Brewfile"
-    eval "$(brew shellenv)"
-    mise install
+    # 呼出元プロジェクトのmise設定に影響されないようホームから実行する。
+    (cd "$target_home" && mise install)
   else
     echo 'ツール導入予定: Brewfile と mise の固定バージョン（--apply 指定時のみ実行）'
   fi
 fi
 if $apply; then
+  if [[ ! -f "$target_home/.gitconfig.local" ]]; then
+    echo 'Gitの本人情報: .gitconfig.local.example を参考に ~/.gitconfig.local を作成してください。'
+  fi
   echo "適用完了。退避があれば: $backup_dir"
   echo '新しいターミナルを開いてください。Neovimの初回取得中は終了せず、:Lazy / :Masonで完了を確認してください。'
 else

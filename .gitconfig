@@ -1,10 +1,6 @@
 [init]
 defaultBranch = main
   
-[user]
-name = vannamei
-email = shun_ymnk@icloud.com
-
 [fetch]
 prune = true
 
@@ -17,3 +13,7 @@ quotepath = false
 
 [merge]
 conflictStyle = zdiff3
+
+# 個人の名前・メールはGit管理外のファイルから読む。
+[include]
+path = ~/.gitconfig.local

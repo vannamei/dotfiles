@@ -18,9 +18,11 @@ class InstallTest(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    def run_install(self, *args, repo=REPO):
+    def run_install(self, *args, repo=REPO, path=None):
         env = dict(os.environ, DOTFILES_TARGET_HOME=str(self.home))
-        return subprocess.run(['bash', str(repo / 'install.sh'), *args], env=env,
+        if path is not None:
+            env['PATH'] = path
+        return subprocess.run(['/bin/bash', str(repo / 'install.sh'), *args], env=env,
                               capture_output=True, text=True)
 
     def test_dry_run_changes_nothing(self):
@@ -58,6 +60,28 @@ class InstallTest(unittest.TestCase):
             self.assertNotIn(' C-j ', bindings)
         finally:
             subprocess.run(base + ['kill-server'], capture_output=True)
+
+    def test_missing_brew_does_not_replace_settings(self):
+        tools = Path(self.tmp.name) / 'tools'
+        tools.mkdir()
+        (tools / 'dirname').symlink_to('/usr/bin/dirname')
+        (self.home / '.zshrc').write_text('original')
+        result = self.run_install('--apply', '--tools', path=str(tools))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual((self.home / '.zshrc').read_text(), 'original')
+        self.assertFalse((self.home / '.local').exists())
+
+    def test_failed_brew_does_not_replace_settings(self):
+        tools = Path(self.tmp.name) / 'tools'
+        tools.mkdir()
+        brew = tools / 'brew'
+        brew.write_text('#!/bin/sh\nexit 7\n')
+        brew.chmod(0o755)
+        (self.home / '.zshrc').write_text('original')
+        result = self.run_install('--apply', '--tools', path=str(tools) + os.pathsep + os.environ['PATH'])
+        self.assertEqual(result.returncode, 7)
+        self.assertEqual((self.home / '.zshrc').read_text(), 'original')
+        self.assertFalse((self.home / '.local').exists())
 
     def test_missing_source_stops_before_changes(self):
         repo = Path(self.tmp.name) / 'incomplete'
